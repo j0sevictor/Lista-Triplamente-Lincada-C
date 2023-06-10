@@ -18,9 +18,13 @@ typedef struct
 } elemento;
 
 elemento* criaElemento(char* nome, float idh, float area, int populacao);
+elemento* criaElementoVazio();
 void freeElemento(elemento* elem);
 int equals(elemento* e1, elemento* e2);
 int compare(elemento* e1, elemento* e2, PARAMETRO p);
+void printElemento(elemento* valor);
+
+int validParam(int p);
 
 elemento* criaElemento(char* nome, float idh, float area, int populacao)
 {
@@ -38,15 +42,21 @@ elemento* criaElemento(char* nome, float idh, float area, int populacao)
     return elem;
 }
 
+elemento* criaElementoVazio()
+{
+    elemento* elem = (elemento*) malloc(sizeof(elemento));
+    if (elem == NULL)
+    {
+        return NULL;
+    }
+
+    return elem;
+}
+
 void freeElemento(elemento* elem)
 {
     if (elem == NULL){
         return;
-    }
-
-    if (elem->nomeCidade != NULL)
-    {
-        free(elem->nomeCidade);
     }
 
     free(elem);
@@ -107,3 +117,17 @@ int compare(elemento* e1, elemento* e2, PARAMETRO p)
 
     return 2;
 }
+
+void printElemento(elemento* valor)
+{
+    printf("Cidade:     %s\n", valor->nomeCidade);
+    printf("IDH:        %f\n", valor->idh);
+    printf("Area:       %f KM^2\n", valor->area);
+    printf("População:  %d\n", valor->populacao);
+    printf("----------------------------------\n");
+}
+
+int validParam(int p)
+{
+    return p == IDH || p == AREA || p == POPULACAO;
+} 

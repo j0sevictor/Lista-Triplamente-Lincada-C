@@ -15,7 +15,9 @@ int main()
     addElementoOrdenado(lista, e2);
     addElementoOrdenado(lista, e3);
 
-    printf("%s\n", lista->ultimo[IDH]->valor->nomeCidade);
+    printf("Cidade: %s\n", lista->primeiro[IDH]->proximo[AREA]->valor->nomeCidade);
+
+    printLista(lista, POPULACAO);
 
     freeLista(lista);
     return 0;

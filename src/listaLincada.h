@@ -14,8 +14,10 @@ Lista* criarLista();
 void freeLista(Lista* lista);
 
 int addElementoOrdenado(Lista* lista, elemento* valor);
+int removerElemento(Lista* lista, elemento* valor);
 
 int listaVazia(Lista* lista);
+void printLista(Lista* lista, PARAMETRO p);
 
 
 // Funções
@@ -110,23 +112,96 @@ int addElementoOrdenado(Lista* lista, elemento* valor)
     return 1;
 }
 
+int removerElemento(Lista* lista, elemento* valor)
+{
+    if (listaVazia(lista))
+    {
+        return 0;
+    }
+
+    int i;
+    tNo* noRemover = NULL;
+    tNo* no;
+    for (i = 0; i < NUM_PARAM; i++)
+    {
+        no = lista->primeiro[i];
+        while (no != NULL)
+        {
+            if (equals(valor, no->valor))
+            {
+                // No para ser removido foi achado
+                if (noRemover == NULL)
+                {
+                    noRemover = no;
+                }
+
+                if (no->anterior[i] == NULL)
+                {
+                    // No a ser removido é o primeiro da lista
+                    no->proximo[i]->anterior[i] = NULL;
+                    lista->primeiro[i] = no->proximo[i];
+                }
+                else if (no->proximo[i] == NULL)
+                {
+                    // No a ser removido é o último da lista
+                    no->anterior[i]->proximo[i] = NULL;
+                    lista->ultimo[i] = no->anterior[i];
+                }
+                else
+                {
+                    no->anterior[i]->proximo[i] = no->proximo[i];
+                    no->proximo[i]->anterior[i] = no->anterior[i];
+                }
+
+                break;
+            }
+
+            no = no->proximo[i];
+        }
+    }
+
+    if (noRemover != NULL)
+    {
+        freeNo(noRemover);
+        lista->qtdElementos--;
+    }
+    return 1;
+}
+
 void freeLista(Lista* lista)
 {
     tNo* no = lista->ultimo[0];
     tNo* aux;
+    int liberado = 0, sNo = sizeof(tNo), sElemento = sizeof(elemento);
     while (no != NULL)
     {
         aux = no;
         no = no->anterior[0];
 
         freeNo(aux);
+        liberado += sNo + sElemento;
         lista->qtdElementos--;
     }
-
+    printf("%d BYTES liberados.\n", liberado);
     free(lista);
 }
 
 int listaVazia(Lista* lista)
 {
     return !(lista->qtdElementos);
+}
+
+void printLista(Lista* lista, PARAMETRO p)
+{
+    if (!validParam(p))
+    {
+        return;
+    }
+
+    tNo* no = lista->primeiro[p];
+    while (no != NULL)
+    {
+        printElemento(no->valor);
+        no = no->proximo[p];
+    }
 }
