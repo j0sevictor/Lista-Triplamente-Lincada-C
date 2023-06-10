@@ -98,7 +98,7 @@ int main()
                     system("cls");
                 }
 
-                printLista(listaCidades, param);
+                printLista(listaCidades, param - 1);
                 system("pause");
             }
             break;
