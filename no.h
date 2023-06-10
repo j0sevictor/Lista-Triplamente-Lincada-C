@@ -3,8 +3,8 @@
 typedef struct no
 {
     elemento* valor;
-    struct no* proximo;
-    struct no* anterior;
+    struct no** proximo;
+    struct no** anterior;
 } tNo;
 
 tNo* criarNo(elemento* valor)
@@ -13,9 +13,20 @@ tNo* criarNo(elemento* valor)
     if (novoNo != NULL)
     {
         novoNo->valor = valor;
-        novoNo->proximo = NULL;
-        novoNo->anterior = NULL;
-        return novoNo;
+        novoNo->proximo = (tNo**) malloc(NUM_PARAM * sizeof(tNo*));
+        novoNo->anterior = (tNo**) malloc(NUM_PARAM * sizeof(tNo*));
+
+        if (novoNo->proximo != NULL && novoNo->anterior != NULL)
+        {
+            int i;
+            for (i = 0; i < NUM_PARAM; i++)
+            {
+                novoNo->proximo[i] = NULL;
+                novoNo->anterior[i] = NULL;
+            }
+            
+            return novoNo;
+        }
     }
 
     return NULL;
