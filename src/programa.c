@@ -138,7 +138,7 @@ void removeQuotationAndComma(char* str)
 
     while (str[i] != '\0')
     {
-        if (srt[i] == '.')
+        if (str[i] == '.')
         {
             newStr[index] = ',';
             index++;
