@@ -78,10 +78,10 @@ int main()
     int opc = 0;
     while (opc != 4)
     {
+        system("cls");
         printMenu();
         printf("\nEscolha uma das opções: ");
         scanf("%d", &opc);
-        system("cls");
 
         switch (opc)
         {
@@ -100,11 +100,53 @@ int main()
 
                 printLista(listaCidades, param - 1);
                 system("pause");
+                break;
             }
-            break;
+            case 2:
+            {
+                char nomeCidade[MAX_NOME];
+                printf("Digite o nome da cidade: ");   
+                fgets(nomeCidade, MAX_NOME, stdin);
+                
+                elemento* busca = buscarNaLista(listaCidades, nomeCidade);
+                if (busca != NULL)
+                {
+                    printElemento(busca);
+                }
+                else
+                {
+                    printf("Cidade não encontrada.\n");
+                }
+                system("pause");
+                break;
+            }
+            case 3:
+            {
+                char nomeCidade[MAX_NOME];
+                printf("Digite o nome da cidade a ser removida da lista:\n");
+                fgets(nomeCidade, MAX_NOME, stdin);
 
+                elemento* busca = buscarNaLista(listaCidades, nomeCidade);
+
+                if (busca != NULL)
+                {
+                    int resultado = removerElemento(listaCidades, busca);
+                    if(resultado == 1)
+                    {
+                        printf("Removido com sucesso\n");
+                    } else {
+                        printf("Elemento não foi removido\n");
+                    }
+                }
+                else
+                {
+                    printf("Cidade não encontrada.\n");
+                }
+                system("pause");
+                break; 
+            }
             default:
-            break;
+                break;
         }
     }
 

@@ -7,11 +7,13 @@
 #define AREA 1
 #define POPULACAO 2
 
+#define MAX_NOME 64
+
 typedef int PARAMETRO;
 
 typedef struct
 {
-    char nomeCidade[64];
+    char nomeCidade[MAX_NOME];
     float idh;
     float area;
     int populacao;

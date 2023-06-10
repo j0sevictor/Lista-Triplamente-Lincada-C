@@ -21,7 +21,13 @@ int main()
 
     printf("Cidade: %s\n", lista->primeiro[IDH]->proximo[AREA]->valor->nomeCidade);
 
-    printLista(lista, AREA);
+    elemento* busca = buscarNaLista(lista, "Mauriti");
+    if (busca != NULL)
+    {
+        printElemento(busca);
+    }
+
+    //printLista(lista, AREA);
 
     freeLista(lista);
     return 0;

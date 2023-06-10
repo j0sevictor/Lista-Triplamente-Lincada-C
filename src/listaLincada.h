@@ -205,3 +205,35 @@ void printLista(Lista* lista, PARAMETRO p)
         no = no->proximo[p];
     }
 }
+
+elemento* buscarNaLista(Lista* lista, char* nomeCidade)
+{
+
+    if (listaVazia(lista))
+    {
+        return NULL;
+    }
+
+    tNo* noEncontrado = NULL;
+    tNo* no = lista->primeiro[0];
+    while (no != NULL)
+    {   
+        if (strcmp(nomeCidade, no->valor->nomeCidade) == 0)
+        {
+            // No foi achado
+            noEncontrado = no;
+            break;
+        }
+        no = no->proximo[0];
+    }
+
+
+    if (noEncontrado != NULL)
+    {
+        return noEncontrado->valor;
+    }
+    else 
+    {
+        return NULL;
+    }
+}
